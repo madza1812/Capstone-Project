@@ -134,9 +134,9 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         getLoaderManager().initLoader(mLoaderId, null, this);
 
         mEmptyStub = (ViewStub) rootView.findViewById(R.id.empty_viewstub);
-        ImageView emptyNoteIM = (ImageView) mEmptyStub.findViewById(R.id.empty_note_im);
-        emptyNoteIM.setImageDrawable(getResources().getDrawable(Util.getDrawableIcon(mNoteType)));
         mEmptyStub.inflate().setVisibility(View.GONE);
+        ImageView emptyNoteIM = (ImageView) rootView.findViewById(R.id.empty_note_im);
+        emptyNoteIM.setImageDrawable(getResources().getDrawable(Util.getDrawableIcon(mNoteType)));
 
         return rootView;
     }

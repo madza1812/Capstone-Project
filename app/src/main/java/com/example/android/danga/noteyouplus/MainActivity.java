@@ -80,6 +80,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mNavigationView.getMenu().getItem(mNavDrawerInd).setChecked(true);
+    }
+
+    @Override
     public void onBackPressed() {
         //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -110,6 +116,8 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -191,7 +199,6 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.nav_setting:
-                mNavDrawerInd = 3;
                 startActivity(new Intent(this, SettingsActivity.class));
                 if (mDrawerLayout != null &&  mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
