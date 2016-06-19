@@ -8,6 +8,7 @@
     <string name="action_help">Help</string>
     <string name="desc_toolbar_image">Note You Plus Icon</string>
     <string name="title_activity_detail_note">NoteYouPlus</string>
+    <string name="empty_text">Empty</string>
 
     <!--Menu Titles-->
     <string name="menu_search_title">Search</string>

@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -62,6 +63,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_settings);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("Setting","Home is clicked");
+                SettingsActivity.this.navigateUpTo(NavUtils.getParentActivityIntent(SettingsActivity.this));
+            }
+        });
     }
 
     // Registers a shared preference change listener that gets notified when preferences change

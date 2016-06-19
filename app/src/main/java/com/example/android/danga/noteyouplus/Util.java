@@ -3,6 +3,7 @@ package com.example.android.danga.noteyouplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
 import com.example.android.danga.noteyouplus.data.NoteService;
@@ -11,6 +12,19 @@ import com.example.android.danga.noteyouplus.data.NoteService;
  * Created by An on 6/12/2016.
  */
 public class Util {
+
+    public static int getDrawableIcon(int noteType) {
+        switch (noteType) {
+            case NotesListFragment.ACTIVE_NOTES:
+                return R.drawable.ic_note_black_24dp;
+            case NotesListFragment.DELETED_NOTES:
+                return R.drawable.ic_delete_black_24dp;
+            case NotesListFragment.ARCHIVED_NOTES:
+                return R.drawable.ic_archive_black_24dp;
+            default:
+                return R.drawable.ic_note_black_24dp;
+        }
+    }
 
     public static String getPreferredSortOrder(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

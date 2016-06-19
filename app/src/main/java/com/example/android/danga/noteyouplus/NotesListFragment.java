@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.danga.noteyouplus.data.NoteYouPlusContract;
@@ -50,6 +52,7 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
     public static final int DELETED_NOTES = 235;
     public static final int ARCHIVED_NOTES = 236;
 
+    public ViewStub mEmptyStub;
     private int mBgrColor;
     private String mSortOrder;
     private int mLoaderId;
@@ -116,6 +119,7 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mBgrColor = Util.getPreferredDefaultColor(getActivity());
                 Intent newNoteIntent = new Intent(getActivity(), DetailNoteActivity.class)
                         .setAction(DetailNoteActivity.ACTION_NEW_NOTE)
                         .putExtra(DetailNoteActivityFragment.BGR_INTENT_KEY, mBgrColor);
@@ -128,6 +132,11 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         if (savedInstanceState != null)
             mSearchQuery = savedInstanceState.getString(SEARCH_QUERY_SAVED_KEY,"");
         getLoaderManager().initLoader(mLoaderId, null, this);
+
+        mEmptyStub = (ViewStub) rootView.findViewById(R.id.empty_viewstub);
+        ImageView emptyNoteIM = (ImageView) mEmptyStub.findViewById(R.id.empty_note_im);
+        emptyNoteIM.setImageDrawable(getResources().getDrawable(Util.getDrawableIcon(mNoteType)));
+        mEmptyStub.inflate().setVisibility(View.GONE);
 
         return rootView;
     }
@@ -199,9 +208,9 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(TAG, "onCreateLoader: mSearchQuery = " + mSearchQuery);
+        mSortOrder = Util.getPreferredSortOrder(getActivity());
         if (!mSearchQuery.trim().isEmpty()) {
             String searchQuery = "%"+mSearchQuery+"%";
-
         switch (mNoteType) {
             case ACTIVE_NOTES: {
                 final String selection = "(" + NoteEntry.COLUMN_TITLE + " LIKE ? OR "
@@ -296,14 +305,21 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.v(TAG, "onLoadFinished: update RecyclerView Adapter");
-        mSearchQuery = "";
-        NotesAdapter adapter = new NotesAdapter(data, mListener);
-        adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
-        if (mColumnCount <= 1) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if (data != null && data.getCount() > 0) {
+            if (mEmptyStub.getParent() == null)
+                mEmptyStub.setVisibility(View.GONE);
+            mSearchQuery = "";
+            NotesAdapter adapter = new NotesAdapter(data, mListener);
+            adapter.setHasStableIds(true);
+            mRecyclerView.setAdapter(adapter);
+            if (mColumnCount <= 1) {
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            } else {
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
+            }
         } else {
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
+            mEmptyStub.setVisibility(View.VISIBLE);
+
         }
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);

@@ -193,6 +193,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_setting:
                 mNavDrawerInd = 3;
                 startActivity(new Intent(this, SettingsActivity.class));
+                if (mDrawerLayout != null &&  mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                }
             default:
                 break;
         }

@@ -6,9 +6,11 @@ import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -216,6 +219,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, true);
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, false);
             affectedRows = getActivity().getContentResolver().update(
@@ -234,6 +238,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, true);
             affectedRows = getActivity().getContentResolver().update(
                     itemUri,
@@ -256,6 +261,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, false);
             affectedRows = getActivity().getContentResolver().update(
                     itemUri,
@@ -271,6 +277,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, false);
             affectedRows = getActivity().getContentResolver().update(
                     itemUri,
@@ -286,6 +293,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, true);
             affectedRows = getActivity().getContentResolver().update(
                     itemUri,
@@ -311,6 +319,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
             rowsUpdated = getActivity().getContentResolver().update(
                     itemUri,
                     values,
@@ -320,6 +329,36 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             if (rowsUpdated <= 0) {
                 Log.v(TAG, "Failed to update this note id; " + mNoteId);
             }
+        } else if (mNoteId == -1 && !(mNoteTitle.getText().toString().trim().isEmpty()
+                && mNoteContent.getText().toString().trim().isEmpty())) {
+            ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
+            Uri dirUri = NoteYouPlusContract.NoteEntry.buildDirUri();
+            ContentValues values = new ContentValues();
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_NOTE_TYPE,"text");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_PHOTO_URL,"");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_ENCRYPTED_CONTENT,"");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_ENCRYPTED_PASS,"");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CREATED_USER,"adang@email.com");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_USER,"adang@email.com");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_OTHER_USERS,"");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED,false);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED,false);
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
+            cpo.add(ContentProviderOperation.newInsert(dirUri).withValues(values).build());
+
+            try {
+                Log.v(TAG,"prepared insert");
+                getActivity().getContentResolver().applyBatch(NoteYouPlusContract.CONTENT_AUTHORITY, cpo);
+            } catch (RemoteException e) {
+                Log.v(TAG, "Error adding content.", e);
+                e.printStackTrace();
+            } catch (OperationApplicationException e) {
+                e.printStackTrace();
+            }
+            Log.v(TAG, "Insert completed!");
         }
         super.onPause();
     }
