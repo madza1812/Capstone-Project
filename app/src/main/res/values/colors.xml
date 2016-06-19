@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFEB3B</color>
+    <color name="colorPrimaryDark">#F57F17</color>
+    <color name="colorAccent">#FF3D00</color>
+    <color name="nyp_line_black_color">#212121</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#ffe0e0e0</color>
+    <color name="text_tertiary_inverse">#FFFFFF</color>
+    <color name="text_primary_inverse">#FFFFFF</color>
+    <color name="text_title_toolbar">#888888</color>
+</resources>

@@ -1,0 +1,67 @@
+<resources>
+    <!--Application UI-->
+    <string name="app_name">NoteYouPlus</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_help">Help</string>
+    <string name="desc_toolbar_image">Note You Plus Icon</string>
+    <string name="title_activity_detail_note">NoteYouPlus</string>
+
+    <!--Menu Titles-->
+    <string name="menu_search_title">Search</string>
+    <string name="menu_color_title">Color</string>
+
+    <!--Misculaneous-->
+    <string name="forever_delete_note_message">Are you sure to delete this note forever?</string>
+    <string name="forever_delete_note_title">Forever Delete this note?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="action_share">Share</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!--Shared Preferences-->
+    <string name="pref_bgr_color_key" translatable="false">default-bgr-color</string>
+    <string name="pref_bgr_color_default" translatable="false">900</string>
+    <string name="pref_sort_order_key" translatable="false">sort-order</string>
+    <string name="pref_sort_order_default" translatable="false">modifiedDate DESC</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_title_default_background_color">Default Background Color</string>
+    <string-array name="pref_bgr_color_list_titles">
+        <item>White</item>
+        <item>Red</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Orange</item>
+        <item>Purple</item>
+        <item>Light Blue</item>
+        <item>Light Yellow</item>
+    </string-array>
+    <string-array name="pref_bgr_color_list_values">
+        <item>900</item>
+        <item>901</item>
+        <item>902</item>
+        <item>903</item>
+        <item>904</item>
+        <item>905</item>
+        <item>906</item>
+        <item>907</item>
+        <item>908</item>
+    </string-array>
+
+    <string name="pref_title_default_sort_order">Sort By</string>
+    <string-array name="pref_sort_order_list_titles">
+        <item>Modified Date</item>
+        <item>Alphabetical Title</item>
+        <item>Color</item>
+    </string-array>
+    <string-array name="pref_sort_order_list_values">
+        <item>modifiedDate DESC</item>
+        <item>noteTitle ASC</item>
+        <item>bgrColor ASC</item>
+    </string-array>
+
+</resources>

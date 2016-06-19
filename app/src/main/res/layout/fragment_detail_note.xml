@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/detail_note_view"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.android.danga.noteyouplus.DetailNoteActivityFragment"
+    tools:showIn="@layout/activity_detail_note"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_note_title"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:textSize="@dimen/title_detail_note_text_size"
+        android:text=""/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/text_note_body"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical"
+        android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
+        android:layout_marginStart="@dimen/detail_inner_horiz_margin"
+        android:layout_marginRight="@dimen/detail_inner_horiz_margin"
+        android:layout_marginEnd="@dimen/detail_inner_horiz_margin"
+        android:textColorLink="@color/colorAccent"
+        android:fontFamily="san-serif-regular"
+        android:textStyle="normal"
+        android:textSize="@dimen/body_detail_note_text_size"
+        android:lineSpacingMultiplier="@fraction/body_detail_line_spacing_multiplier"
+        android:text=""
+        android:minLines="5"
+        android:linksClickable="true" />
+
+</LinearLayout>

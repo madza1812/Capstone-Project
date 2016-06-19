@@ -1,0 +1,26 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">6dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="toolbar_elev">4dp</dimen>
+    <dimen name="title_detail_note_text_size">24sp</dimen>
+    <dimen name="body_detail_note_text_size">20sp</dimen>
+    <dimen name="title_list_note_text_size">18sp</dimen>
+    <dimen name="body_list_note_text_size">16sp</dimen>
+    <dimen name="title_list_note_padding">2dp</dimen>
+    <dimen name="title_list_note_padding_bottom">5dp</dimen>
+    <dimen name="list_note_margin">4dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="detail_inner_horiz_margin">6dp</dimen>
+    <item name="body_detail_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+
+
+    // Dimension of layout attributes:
+    <dimen name="fab_elevation">6dp</dimen>
+
+</resources>

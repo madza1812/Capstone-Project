@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_note_black_24dp"
+            android:title="Notes" />
+        <item
+            android:id="@+id/nav_deleted"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Trash Can" />
+        <item
+            android:id="@+id/nav_archived"
+            android:icon="@drawable/ic_archive_black_24dp"
+            android:title="Archived" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings_applications_black_24dp"
+            android:title="Setting" />
+
+    </group>
+</menu>

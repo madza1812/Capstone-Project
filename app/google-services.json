@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "419724414065",
+    "firebase_url": "https://builditbigger-danga.firebaseio.com",
+    "project_id": "builditbigger-danga",
+    "storage_bucket": "builditbigger-danga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419724414065:android:354d38f2f0b5d7b9",
+        "android_client_info": {
+          "package_name": "com.example.android.danga.noteyouplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419724414065-jvigjl4se9s03t4toqaslf8cljm38bb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9WE683LA-tdqxct6VSlVcha5rxtLVnZ0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
