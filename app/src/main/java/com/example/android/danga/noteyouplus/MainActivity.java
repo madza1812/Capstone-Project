@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
         // Insert a dummy record.
         //NoteService.startActionDownload(MainActivity.this, "param1", "param2" );
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         // Launching View
         if (savedInstanceState == null) {
             mNavigationView.getMenu().getItem(0).setChecked(true);
+            loadFragment(R.id.nav_notes);
         }
     }
 

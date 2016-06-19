@@ -3,6 +3,7 @@ package com.example.android.danga.noteyouplus;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -26,6 +27,8 @@ public class DetailNoteActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detail_text_note);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.detail_share_fab);
         fab.setOnClickListener(new View.OnClickListener() {

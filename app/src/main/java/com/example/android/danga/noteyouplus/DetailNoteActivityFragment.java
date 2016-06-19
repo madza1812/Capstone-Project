@@ -93,7 +93,8 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         mDetailNoteView = (LinearLayout) rootView.findViewById(R.id.detail_note_view);
         mNoteTitle = (EditText) rootView.findViewById(R.id.text_note_title);
         mNoteContent = (EditText) rootView.findViewById(R.id.text_note_body);
-        mBgrColor = NoteService.DEFAULT_BGR_COLOR;
+        mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));
+        //mBgrColor = NoteService.DEFAULT_BGR_COLOR;
         return rootView;
     }
 

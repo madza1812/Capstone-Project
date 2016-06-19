@@ -20,8 +20,54 @@ public class Util {
 
     public static int getPreferredDefaultColor(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(context.getString(R.string.pref_bgr_color_key),
-                Integer.parseInt(context.getString(R.string.pref_bgr_color_key)));
+        return Integer.parseInt(prefs.getString(context.getString(R.string.pref_bgr_color_key),
+                context.getString(R.string.pref_bgr_color_default)));
+    }
+
+    public static String getPreferenceTitleColor(String value){
+        String retTitle;
+        switch (value) {
+            case "900": {
+                retTitle = "White";
+                break;
+            }
+            case "901": {
+                retTitle = "Red";
+                break;
+            }
+            case "902": {
+                retTitle = "Yellow";
+                break;
+            }
+            case "903": {
+                retTitle = "Green";
+                break;
+            }
+            case "904": {
+                retTitle = "Blue";
+                break;
+            }
+            case "905": {
+                retTitle = "Orange";
+                break;
+            }
+            case "906": {
+                retTitle = "Purple";
+                break;
+            }
+            case "907": {
+                retTitle = "Light Blue";
+                break;
+            }
+            case "908": {
+                retTitle = "Light Yellow";
+                break;
+            }
+            default: {
+                retTitle = value;
+            }
+        }
+        return retTitle;
     }
 
     public static int getBgrColor(int bgrColorCode) {
