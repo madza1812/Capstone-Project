@@ -19,7 +19,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Editable;
+import android.text.Selection;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -95,7 +98,18 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         rootView =  inflater.inflate(R.layout.fragment_detail_note, container, false);
         mDetailNoteView = (LinearLayout) rootView.findViewById(R.id.detail_note_view);
         mNoteTitle = (EditText) rootView.findViewById(R.id.text_note_title);
+        mNoteTitle.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == event.KEYCODE_ENTER) {
+                    Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getSelectionStart());
+                    mNoteContent.requestFocus();
+                }
+                return true;
+            }
+        });
         mNoteContent = (EditText) rootView.findViewById(R.id.text_note_body);
+        mNoteContent.setSelection(mNoteContent.length());
         mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));
         //mBgrColor = NoteService.DEFAULT_BGR_COLOR;
         return rootView;

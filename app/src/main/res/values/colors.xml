@@ -9,4 +9,5 @@
     <color name="text_tertiary_inverse">#FFFFFF</color>
     <color name="text_primary_inverse">#FFFFFF</color>
     <color name="text_title_toolbar">#888888</color>
+    <color name="detail_text_line_color">#9E9E9E</color>
 </resources>

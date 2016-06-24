@@ -22,7 +22,8 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/content_note_height"
+        android:gravity="start|top"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/text_note_body"
@@ -38,8 +39,9 @@
         android:textStyle="normal"
         android:textSize="@dimen/body_detail_note_text_size"
         android:lineSpacingMultiplier="@fraction/body_detail_line_spacing_multiplier"
-        android:text=""
-        android:minLines="5"
-        android:linksClickable="true" />
+        android:linksClickable="true"
+        android:minLines="10"
+        android:background="@android:color/transparent" />
+
 
 </LinearLayout>
