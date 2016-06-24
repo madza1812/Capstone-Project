@@ -35,20 +35,24 @@ public class MainActivity extends AppCompatActivity
     public static final String NOTES_TAG = "com.example.android.danga.noteyouplus.NOTES_TAG";
     public static final String DELETED_NOTES_TAG = "com.example.android.danga.noteyouplus.DELETED_NOTES_TAG";
     public static final String ARCHIVED_NOTES_TAG = "com.example.android.danga.noteyouplus.ARCHIVED_NOTES_TAG";
+    public static final String ACTIVE_NOTES_TITLE = "Notes";
+    public static final String DELETED_NOTES_TITLE = "Deleted Notes";
+    public static final String ARCHIVED_NOTES_TITLE = "Archived Notes";
 
     public static final String NAV_IND_SAVED_KEY = "com.example.android.danga.noteyouplus.NAV_IND_SAVED_KEY";
 
     ActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
+    Toolbar mToolbar;
     public static int mNavDrawerInd = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
         // Insert a dummy record.
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
@@ -73,6 +77,10 @@ public class MainActivity extends AppCompatActivity
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
+    }
+
+    public void setFragmentTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -166,6 +174,7 @@ public class MainActivity extends AppCompatActivity
                 if (mDrawerLayout != null &&  mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 }
+                setFragmentTitle(ACTIVE_NOTES_TITLE);
                 break;
             case R.id.nav_deleted:
                 mNavDrawerInd = 1;
@@ -183,6 +192,7 @@ public class MainActivity extends AppCompatActivity
                 if (mDrawerLayout != null &&  mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 }
+                setFragmentTitle(DELETED_NOTES_TITLE);
                 break;
             case R.id.nav_archived:
                 mNavDrawerInd = 2;
@@ -199,6 +209,7 @@ public class MainActivity extends AppCompatActivity
                 if (mDrawerLayout != null &&  mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 }
+                setFragmentTitle(ARCHIVED_NOTES_TITLE);
                 break;
             case R.id.nav_setting:
                 startActivity(new Intent(this, SettingsActivity.class));
