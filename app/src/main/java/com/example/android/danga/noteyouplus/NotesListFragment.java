@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +54,10 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
     public static final int DELETED_NOTES = 235;
     public static final int ARCHIVED_NOTES = 236;
 
+    public static final String ACTIVE_NOTES_TITLE = "Notes";
+    public static final String DELETED_NOTES_TITLE = "Deleted Notes";
+    public static final String ARCHIVED_NOTES_TITLE = "Archived Notes";
+
     public ViewStub mEmptyStub;
     private int mBgrColor;
     private String mSortOrder;
@@ -62,6 +68,7 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
     public View rootView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    CollapsingToolbarLayout mCollapingToolbar;
 
     private String mSearchQuery = "";
 
@@ -106,6 +113,8 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         Log.v(TAG, "onCreateView Fragment");
         rootView = inflater.inflate(R.layout.fragment_notes_list, container, false);
 
+        mCollapingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_container_main);
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -139,6 +148,15 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         emptyNoteIM.setImageDrawable(getResources().getDrawable(Util.getDrawableIcon(mNoteType)));
 
         return rootView;
+    }
+
+    public void setTitle(int mNoteType) {
+        mCollapingToolbar.setTitleEnabled(true);
+        mCollapingToolbar.setExpandedTitleGravity(Gravity.CENTER);
+        mCollapingToolbar.setExpandedTitleColor(getResources().getColor(R.color.text_secondary));
+        mCollapingToolbar.setTitle(mNoteType == ACTIVE_NOTES ? ACTIVE_NOTES_TITLE
+                : mNoteType == DELETED_NOTES ? DELETED_NOTES_TITLE : ARCHIVED_NOTES_TITLE
+        );
     }
 
     @Override

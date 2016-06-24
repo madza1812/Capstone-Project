@@ -107,7 +107,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     private void setPreferenceSummary(Preference preference, Object value) {
         String stringValue = value.toString();
         String key = preference.getKey();
-        String retTitle;
+        String retTitle = stringValue;
 
         if (preference instanceof ListPreference) {
             if (key.equals(getString(R.string.pref_bgr_color_key))) {
@@ -129,7 +129,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         break;
                     }
                 }
-                preference.setSummary(stringValue);
+                preference.setSummary(retTitle);
         } else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);
