@@ -1,12 +1,19 @@
 package com.example.android.danga.noteyouplus;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
 
 import com.example.android.danga.noteyouplus.data.NoteService;
+import com.example.android.danga.noteyouplus.data.NoteYouPlusContract;
 
 /**
  * Created by An on 6/12/2016.

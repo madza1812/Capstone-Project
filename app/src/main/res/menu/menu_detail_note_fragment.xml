@@ -5,14 +5,25 @@
         android:title="@string/menu_color_title"
         android:orderInCategory="100"
         app:showAsAction="always"/>
-    <item android:id="@+id/action_recover"
+    <item android:id="@+id/action_archive"
         android:title="@string/menu_color_title"
         android:orderInCategory="101"
         app:showAsAction="always"
-        android:icon="@drawable/ic_move_to_inbox_black_24dp"/>
+        android:icon="@drawable/ic_archive_black_24dp"/>
     <item android:id="@+id/action_delete"
         android:title="@string/menu_color_title"
         android:orderInCategory="102"
         app:showAsAction="always"
         android:icon="@drawable/ic_delete_black_24dp"/>
+    <item android:id="@+id/action_recover"
+        android:title="@string/menu_color_title"
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_unarchive_black_24dp"/>
+    <item android:id="@+id/action_forever_delete"
+        android:title="@string/menu_color_title"
+        android:orderInCategory="102"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_delete_forever_black_24dp"/>
+
 </menu>

@@ -203,6 +203,8 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         mListener = null;
     }
 
+
+
     public void refreshListNotes() {
         //TODO: loading or refreshing loader
         Log.v(TAG, "on refreshListNotes");

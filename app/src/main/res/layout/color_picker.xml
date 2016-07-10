@@ -16,19 +16,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/red_color_btn"
-            android:src="@drawable/red_bgr"
+            android:src="@drawable/ic_red_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/orange_color_btn"
-            android:src="@drawable/orange_bgr"
+            android:src="@drawable/ic_orange_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/yellow_color_btn"
-            android:src="@drawable/yellow_bgr"
+            android:src="@drawable/ic_yellow_color"
             android:background="@drawable/light_gray_color"/>
     </LinearLayout>
     <LinearLayout
@@ -41,19 +41,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/green_color_btn"
-            android:src="@drawable/green_bgr"
+            android:src="@drawable/ic_green_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/blue_color_btn"
-            android:src="@drawable/blue_bgr"
+            android:src="@drawable/ic_blue_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/purple_color_btn"
-            android:src="@drawable/purple_bgr"
+            android:src="@drawable/ic_purple_color"
             android:background="@drawable/light_gray_color"/>
     </LinearLayout>
     <LinearLayout
@@ -66,19 +66,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/light_yellow_color_btn"
-            android:src="@drawable/light_yellow_bgr"
+            android:src="@drawable/ic_light_yellow_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/light_blue_color_btn"
-            android:src="@drawable/light_blue_bgr"
+            android:src="@drawable/ic_light_blue_color"
             android:background="@drawable/light_gray_color"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/white_color_btn"
-            android:src="@drawable/white_bgr"
+            android:src="@drawable/ic_white_color"
             android:background="@drawable/light_gray_color"/>
     </LinearLayout>
 

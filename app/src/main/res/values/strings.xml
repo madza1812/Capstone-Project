@@ -19,6 +19,10 @@
     <string name="forever_delete_note_title">Forever Delete this note?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="exit_title">You are exiting the app.</string>
+    <string name="exit_message">Do you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="action_share">Share</string>
     <string name="title_activity_settings">Settings</string>
 

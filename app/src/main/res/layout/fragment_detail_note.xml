@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_note_title"
+        android:id="@+id/detail_note_title"
         android:fontFamily="sans-serif-condensed"
         android:textStyle="bold"
         android:textSize="@dimen/title_detail_note_text_size"
@@ -26,7 +26,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/text_note_body"
+        android:id="@+id/detail_note_content"
         style="@style/TextAppearance.AppCompat.Body1"
         android:isScrollContainer="true"
         android:scrollbars="vertical"

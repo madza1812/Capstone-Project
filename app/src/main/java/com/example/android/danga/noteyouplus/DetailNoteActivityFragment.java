@@ -38,6 +38,13 @@ import com.example.android.danga.noteyouplus.data.NoteYouPlusContract;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.Unbinder;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -51,11 +58,14 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
     public static final String BGR_SAVED_KEY = "com.example.android.danga.noteyouplus.SAVED_BGR_KEY";
     public static final String BGR_INTENT_KEY = "com.example.android.danga.noteyouplus.INTENT_BGR_KEY";
 
-    public View rootView;
     public Uri mUri;
-    public LinearLayout mDetailNoteView;
-    public EditText mNoteTitle;
-    public EditText mNoteContent;
+
+    public View rootView;
+    @BindView(R.id.detail_note_view) LinearLayout mDetailNoteView;
+    @BindView(R.id.detail_note_title) EditText mNoteTitle;
+    @BindView(R.id.detail_note_content) EditText mNoteContent;
+    private Unbinder mUnbinder;
+
     public static int mBgrColor = NoteService.DEFAULT_BGR_COLOR;
     public static boolean isDeletedNote = false;
     public static boolean isArchivedNote = false;
@@ -96,22 +106,23 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_detail_note, container, false);
-        mDetailNoteView = (LinearLayout) rootView.findViewById(R.id.detail_note_view);
-        mNoteTitle = (EditText) rootView.findViewById(R.id.text_note_title);
+        mUnbinder = ButterKnife.bind(this, rootView);
+
+        /*mDetailNoteView = (LinearLayout) rootView.findViewById(R.id.detail_note_view);
+        mNoteTitle = (EditText) rootView.findViewById(R.id.detail_note_title);
+        mNoteContent = (EditText) rootView.findViewById(R.id.detail_note_body);*/
         mNoteTitle.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == event.KEYCODE_ENTER) {
-                    Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getSelectionStart());
+                    Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getText().length());
                     mNoteContent.requestFocus();
                 }
                 return true;
             }
         });
-        mNoteContent = (EditText) rootView.findViewById(R.id.text_note_body);
         mNoteContent.setSelection(mNoteContent.length());
         mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));
-        //mBgrColor = NoteService.DEFAULT_BGR_COLOR;
         return rootView;
     }
 
@@ -121,11 +132,14 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             mNoteId = savedInstanceState.getInt(NOTE_ID_SAVED_KEY);
             mNoteTitle.setText(savedInstanceState.getString(TITLE_SAVED_KEY, ""));
             mNoteContent.setText(savedInstanceState.getString(CONTENT_SAVED_KEY, ""));
+            Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getText().length());
             mBgrColor = savedInstanceState.getInt(BGR_SAVED_KEY, NoteService.DEFAULT_BGR_COLOR);
             mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));
         }
         super.onViewStateRestored(savedInstanceState);
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -135,22 +149,30 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        final MenuItem miColorView = menu.findItem(R.id.action_colorize);
-        final MenuItem miDeleteView = menu.findItem(R.id.action_delete);
-        final MenuItem miRecoverView = menu.findItem(R.id.action_recover);
+        final MenuItem miColorBtn = menu.findItem(R.id.action_colorize);
+        final MenuItem miDeleteBtn = menu.findItem(R.id.action_delete);
+        final MenuItem miArchiveBtn = menu.findItem(R.id.action_archive);
+        final MenuItem miUnArchiveBtn = menu.findItem(R.id.action_recover);
+        final MenuItem miForeverDeleteBtn = menu.findItem(R.id.action_forever_delete);
         if (isDeletedNote) {
-            miColorView.setVisible(false);
-            miDeleteView.setVisible(true);
-            miRecoverView.setVisible(true);
+            miColorBtn.setVisible(false);
+            miDeleteBtn.setVisible(false);
+            miArchiveBtn.setVisible(false);
+            miUnArchiveBtn.setVisible(true);
+            miForeverDeleteBtn.setVisible(true);
         } else if (isArchivedNote){
-            miColorView.setVisible(false);
-            miDeleteView.setVisible(false);
-            miRecoverView.setVisible(true);
+            miColorBtn.setVisible(false);
+            miDeleteBtn.setVisible(true);
+            miArchiveBtn.setVisible(false);
+            miUnArchiveBtn.setVisible(true);
+            miForeverDeleteBtn.setVisible(false);
         } else {
-            miColorView.setVisible(true);
-            miDeleteView.setVisible(true);
-            miRecoverView.setVisible(true);
-            miColorView.setIcon(Util.getDrawable(mBgrColor));
+            miColorBtn.setVisible(true);
+            miDeleteBtn.setVisible(true);
+            miArchiveBtn.setVisible(true);
+            miUnArchiveBtn.setVisible(false);
+            miForeverDeleteBtn.setVisible(false);
+            miColorBtn.setIcon(Util.getDrawable(mBgrColor));
         }
         super.onPrepareOptionsMenu(menu);
     }
@@ -168,7 +190,6 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             case R.id.action_delete: {
                 Log.v(TAG, "Delete note is clicked.");
                 handleDeleteMenuIconClick();
-
                 break;
             }
             case R.id.action_recover: {
@@ -176,6 +197,15 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
                 handleRecoveryMenuIconCLick();
                 getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
                 break;
+            }
+            case R.id.action_archive: {
+                Log.v(TAG, "Archive note");
+                handleRecoveryMenuIconCLick();
+                getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
+                break;
+            }case R.id.action_forever_delete: {
+                Log.v(TAG, "Forever Delete note");
+                handleDeleteMenuIconClick();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -345,7 +375,6 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             }
         } else if (mNoteId == -1 && !(mNoteTitle.getText().toString().trim().isEmpty()
                 && mNoteContent.getText().toString().trim().isEmpty())) {
-            ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
             Uri dirUri = NoteYouPlusContract.NoteEntry.buildDirUri();
             ContentValues values = new ContentValues();
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
@@ -361,18 +390,14 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED,false);
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED,false);
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            cpo.add(ContentProviderOperation.newInsert(dirUri).withValues(values).build());
 
-            try {
-                Log.v(TAG,"prepared insert");
-                getActivity().getContentResolver().applyBatch(NoteYouPlusContract.CONTENT_AUTHORITY, cpo);
-            } catch (RemoteException e) {
-                Log.v(TAG, "Error adding content.", e);
-                e.printStackTrace();
-            } catch (OperationApplicationException e) {
-                e.printStackTrace();
+            Log.v(TAG,"prepared insert");
+            Uri result = getActivity().getContentResolver().insert(dirUri, values);
+            int resultId = Integer.parseInt(result.getLastPathSegment());
+            if (resultId > 0) {
+                Log.v(TAG, "Insert Successfully!");
+                mNoteId = resultId;
             }
-            Log.v(TAG, "Insert completed!");
         }
         super.onPause();
     }
@@ -384,6 +409,12 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         outState.putString(CONTENT_SAVED_KEY, mNoteContent.getText().toString());
         outState.putInt(BGR_SAVED_KEY, mBgrColor);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     @Override
@@ -417,6 +448,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             mNoteId = data.getInt(NotesListFragment.Query.PROJECTION_ID);
             mNoteTitle.setText(data.getString(NotesListFragment.Query.PROJECTION_TITLE));
             mNoteContent.setText(data.getString(NotesListFragment.Query.PROJECTION_CONTENT));
+            Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getText().length());
             mBgrColor = data.getInt(NotesListFragment.Query.PROJECTION_BG_COLOR);
             mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));
             isDeletedNote = (data.getInt(NotesListFragment.Query.PROJECTION_IS_DELETED) == 1);
