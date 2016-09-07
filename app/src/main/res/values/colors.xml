@@ -10,4 +10,7 @@
     <color name="text_primary_inverse">#FFFFFF</color>
     <color name="text_title_toolbar">#888888</color>
     <color name="detail_text_line_color">#9E9E9E</color>
+    <color name="note_widget_brg_stoke">#FFFFFFFF</color>
+    <color name="note_widget_bgr_grad_end">#DD2ECCFA</color>
+    <color name="note_widget_bgr_grad_start">#DD000000</color>
 </resources>

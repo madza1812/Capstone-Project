@@ -379,23 +379,10 @@ public class NotesListFragment extends Fragment implements LoaderManager.LoaderC
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mTitleView.setText(mCursor.getString(Query.PROJECTION_TITLE));
+            holder.mTitleView.setContentDescription(mCursor.getString(Query.PROJECTION_TITLE));
             holder.mContentView.setText(mCursor.getString(Query.PROJECTION_CONTENT));
+            holder.mContentView.setContentDescription(mCursor.getString(Query.PROJECTION_CONTENT));
             holder.mView.setBackgroundColor(Util.getBgrColor(mCursor.getInt(Query.PROJECTION_BG_COLOR)));
-            // LOG DATA
-            Log.v(TAG, "ID = " + mCursor.getInt(Query.PROJECTION_ID));
-            Log.v(TAG, "TITLE =  = " + mCursor.getString(Query.PROJECTION_TITLE));
-            Log.v(TAG, "CONTENT = " + mCursor.getString(Query.PROJECTION_CONTENT));
-            Log.v(TAG, "NOTE TYPE = " + mCursor.getString(Query.PROJECTION_NOTE_TYPE));
-            Log.v(TAG, "PHOTO_URL = " + mCursor.getString(Query.PROJECTION_PHOTO_URL));
-            Log.v(TAG, "ENCRYPTED CONTENT = " + mCursor.getString(Query.PROJECTION_ENCRYPTED_CONTENT));
-            Log.v(TAG, "ENCRYPTED PASS = " + mCursor.getString(Query.PROJECTION_ENCRYPTED_PASS));
-            Log.v(TAG, "CREATED USER = " + mCursor.getString(Query.PROJECTION_CREATED_USER));
-            Log.v(TAG, "MODIFIED USER = " + mCursor.getString(Query.PROJECTION_MODIFIED_USER));
-            Log.v(TAG, "MODIFIED DATE = " + mCursor.getInt(Query.PROJECTION_MODIFIED_DATE));
-            Log.v(TAG, "OTHER USERS = " + mCursor.getString(Query.PROJECTION_OTHER_USERS));
-            Log.v(TAG, "IS DELETED = " + mCursor.getInt(Query.PROJECTION_IS_DELETED));
-            Log.v(TAG, "IS ARCHIVED = " + mCursor.getInt(Query.PROJECTION_IS_ARCHIVED));
-            Log.v(TAG, "BGR COLOR = " + mCursor.getInt(Query.PROJECTION_BG_COLOR));
         }
 
         @Override

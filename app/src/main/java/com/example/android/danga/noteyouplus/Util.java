@@ -183,4 +183,20 @@ public class Util {
         }
         return retDrawable;
     }
+
+    public static int[] getWidgetTextSize(int textSize){
+        int[] retSize = {16,14};
+        switch (textSize) {
+            case NoteYouPlusAppWidgetConfigureActivity.WIDGET_SMALL_TEXT_SIZE:
+                retSize = new int[]{14,12};
+                break;
+            case NoteYouPlusAppWidgetConfigureActivity.WIDGET_LARGE_TEXT_SIZE:
+                retSize = new int[]{18,16};
+                break;
+            default:
+                break;
+        }
+        return retSize;
+    }
+
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="@string/configure"
+        android:textStyle="bold"
+        android:textSize="@dimen/configure_widget_note_text_size"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/text_primary"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:padding="@dimen/widget_layout_margin"
+        android:id="@+id/appwidget_configure_rv"
+        tools:listitem="@layout/app_widget_configure_list_item"
+        app:layoutManager="LinearLayoutManager"/>
+</LinearLayout>

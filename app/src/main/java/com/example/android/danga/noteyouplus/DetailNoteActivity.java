@@ -18,7 +18,7 @@ public class DetailNoteActivity extends AppCompatActivity
 
     public static final String TAG = DetailNoteActivity.class.getSimpleName();
     public static final String ACTION_NEW_NOTE= "com.example.android.danga.noteyouplus.ACTION_NEW_NOTE";
-    public static final String ACTION_VIEW_NOTE = "com.example.android.danga.noteyouplus.ACTIONVIEW_NOTE";
+    public static final String ACTION_VIEW_NOTE = "com.example.android.danga.noteyouplus.ACTION_VIEW_NOTE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

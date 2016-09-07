@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.example.android.danga.noteyouplus.NoteYouPlusAppWidgetConfigureActivity"
+    android:initialKeyguardLayout="@layout/note_you_plus_app_widget"
+    android:initialLayout="@layout/note_you_plus_app_widget"
+    android:minHeight="180dp"
+    android:minWidth="110dp"
+    android:previewImage="@drawable/example_appwidget_preview"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"></appwidget-provider>

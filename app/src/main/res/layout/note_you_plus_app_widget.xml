@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/widget_small_text_size"
+            android:background="@android:color/transparent"
+            android:text="@string/size_button"
+            android:textSize="@dimen/title_widget_note_text_size_small"
+            android:fontFamily="sans-serif-regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/widget_medium_text_size"
+            android:background="@android:color/transparent"
+            android:text="@string/size_button"
+            android:textSize="@dimen/title_widget_note_text_size_medium"
+            android:fontFamily="sans-serif-regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_gravity="center" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/widget_large_text_size"
+            android:background="@android:color/transparent"
+            android:text="@string/size_button"
+            android:textSize="@dimen/title_widget_note_text_size_large"
+            android:fontFamily="sans-serif-regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:id="@+id/appwidget_note_container"
+        android:padding="@dimen/widget_layout_margin">
+
+    <TextView
+        android:id="@+id/appwidget_note_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/widget_margin"
+        android:textSize="@dimen/title_widget_note_text_size_medium"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:textColor="@color/text_primary"
+        android:gravity="left|center_vertical" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:layout_margin="@dimen/widget_layout_margin"
+        android:gravity="start|top"
+        android:id="@+id/appwidget_note_content"
+        android:textColorLink="@color/colorAccent"
+        android:fontFamily="san-serif-regular"
+        android:textStyle="normal"
+        android:textSize="@dimen/body_widget_note_text_size_medium"
+        android:ellipsize="end"
+        android:textColor="@color/text_primary"
+        android:scrollbars="vertical"/>
+    </LinearLayout>
+
+</LinearLayout>

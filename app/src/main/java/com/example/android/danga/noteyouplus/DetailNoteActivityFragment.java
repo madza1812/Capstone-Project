@@ -447,7 +447,9 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         if(data != null && data.moveToFirst()) {
             mNoteId = data.getInt(NotesListFragment.Query.PROJECTION_ID);
             mNoteTitle.setText(data.getString(NotesListFragment.Query.PROJECTION_TITLE));
+            mNoteTitle.setContentDescription(data.getString(NotesListFragment.Query.PROJECTION_TITLE));
             mNoteContent.setText(data.getString(NotesListFragment.Query.PROJECTION_CONTENT));
+            mNoteContent.setContentDescription(data.getString(NotesListFragment.Query.PROJECTION_CONTENT));
             Selection.setSelection((Editable) mNoteContent.getText(), mNoteContent.getText().length());
             mBgrColor = data.getInt(NotesListFragment.Query.PROJECTION_BG_COLOR);
             mDetailNoteView.setBackgroundColor(Util.getBgrColor(mBgrColor));

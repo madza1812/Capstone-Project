@@ -104,7 +104,7 @@ public class NoteService extends IntentService {
         Uri dirUri = NoteEntry.buildDirUri();
 
         ContentValues values = new ContentValues();
-        values.put(NoteEntry.COLUMN_TITLE, "Some title");
+        values.put(NoteEntry.COLUMN_TITLE, "Some test title");
         values.put(NoteEntry.COLUMN_CONTENT,"A web application is a piece of software that end users access over a network—just like HTML\n" +
                 "pages. A web application, however, consists of more dynamic elements than plain vanilla HTML.\n" +
                 "For instance, modern web applications have a lot of server-side languages. These languages\n" +

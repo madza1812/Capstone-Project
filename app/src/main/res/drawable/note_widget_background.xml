@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke
+        android:width="@dimen/note_widget_bgr_stroke"
+        android:color="@color/note_widget_brg_stoke" />
+
+    <gradient
+        android:angle="225"
+        android:endColor="@color/note_widget_bgr_grad_end"
+        android:startColor="@color/note_widget_bgr_grad_start" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/note_widget_bgr_corner"
+        android:bottomRightRadius="@dimen/note_widget_bgr_corner"
+        android:topLeftRadius="@dimen/note_widget_bgr_corner"
+        android:topRightRadius="@dimen/note_widget_bgr_corner" />
+</shape>

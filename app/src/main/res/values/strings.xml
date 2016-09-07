@@ -69,4 +69,10 @@
         <item>bgrColor ASC</item>
     </string-array>
 
+    <!--Widget Strings-->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure - Choose a note</string>
+    <string name="add_widget">Add widget</string>
+    <string name="size_button" translatable="false">Aa</string>
+
 </resources>

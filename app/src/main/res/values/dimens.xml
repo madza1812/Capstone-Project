@@ -22,10 +22,27 @@
     <dimen name="title_list_note_text_size">18sp</dimen>
     <dimen name="body_list_note_text_size">16sp</dimen>
     <item name="body_detail_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+    <dimen name="title_widget_note_text_size_small">14sp</dimen>
+    <dimen name="body_widget_note_text_size_small">12sp</dimen>
+    <dimen name="title_widget_note_text_size_medium">16sp</dimen>
+    <dimen name="body_widget_note_text_size_medium">14sp</dimen>
+    <dimen name="title_widget_note_text_size_large">18sp</dimen>
+    <dimen name="body_widget_note_text_size_large">16sp</dimen>
+    <dimen name="configure_widget_note_text_size">26sp</dimen>
 
     <!--Elevations-->
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="toolbar_elev">4dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_layout_margin">4dp</dimen>
+    <dimen name="note_widget_bgr_corner">5dp</dimen>
+    <dimen name="note_widget_bgr_stroke">2dp</dimen>
+    <dimen name="widget_listview_divider_height">2dp</dimen>
 
 </resources>
