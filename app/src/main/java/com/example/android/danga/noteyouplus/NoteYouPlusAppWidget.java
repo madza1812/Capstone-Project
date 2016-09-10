@@ -12,6 +12,9 @@ import android.widget.RemoteViews;
 
 import com.example.android.danga.noteyouplus.data.NoteYouPlusContract;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link NoteYouPlusAppWidgetConfigureActivity NoteYouPlusAppWidgetConfigureActivity}
@@ -19,9 +22,14 @@ import com.example.android.danga.noteyouplus.data.NoteYouPlusContract;
 public class NoteYouPlusAppWidget extends AppWidgetProvider{
 
     public static final String TAG = NoteYouPlusAppWidget.class.getSimpleName();
-    private static final String SMALL_SIZE_CLICKED = "com.nyp.danga_small_clicked";
-    private static final String MEDIUM_SIZE_CLICKED = "com.nyp.danga_medium_clicked";
-    private static final String LARGE_SIZE_CLICKED = "com.nyp.danga_large_clicked";
+    private static final String SMALL_SIZE_CLICKED = "com.example.android.danga.noteyouplus.small_clicked";
+    private static final String MEDIUM_SIZE_CLICKED = "com.example.android.danga.noteyouplus.medium_clicked";
+    private static final String LARGE_SIZE_CLICKED = "com.example.android.danga.noteyouplus.large_clicked";
+    public static final String NOTE_UPDATED = "com.example.android.danga.noteyouplus.note_update";
+    public static final String TITLE_INTENT_EXTRA = "com.example.android.danga.noteyouplus.title_intent_extra";
+    public static final String CONTENT_INTENT_EXTRA = "com.example.android.danga.noteyouplus.content_intent_extra";
+    public static final String COLOR_INTENT_EXTRA = "com.example.android.danga.noteyouplus.color_intent_extra";
+    public static final String NOTEID_INTENT_EXTRA = "com.example.android.danga.noteyouplus.noteid_intent_extra";
 
     static Uri mUri;
     static Context mContext;
@@ -124,7 +132,7 @@ public class NoteYouPlusAppWidget extends AppWidgetProvider{
         int[] textSizes;
         int appWidgetId;
         String action = intent.getAction();
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+
         switch (action) {
             case SMALL_SIZE_CLICKED:
                 textSizes =  Util.getWidgetTextSize(NoteYouPlusAppWidgetConfigureActivity.WIDGET_SMALL_TEXT_SIZE);
@@ -133,6 +141,8 @@ public class NoteYouPlusAppWidget extends AppWidgetProvider{
                 views.setTextColor(R.id.widget_small_text_size,context.getResources().getColor(R.color.colorAccent));
                 views.setTextColor(R.id.widget_medium_text_size,context.getResources().getColor(R.color.text_primary_inverse));
                 views.setTextColor(R.id.widget_large_text_size,context.getResources().getColor(R.color.text_primary_inverse));
+                appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+                appWidgetManager.updateAppWidget(appWidgetId,views);
                 break;
             case MEDIUM_SIZE_CLICKED:
                 textSizes =  Util.getWidgetTextSize(NoteYouPlusAppWidgetConfigureActivity.WIDGET_MEDIUM_TEXT_SIZE);
@@ -141,6 +151,8 @@ public class NoteYouPlusAppWidget extends AppWidgetProvider{
                 views.setTextColor(R.id.widget_small_text_size,context.getResources().getColor(R.color.text_primary_inverse));
                 views.setTextColor(R.id.widget_medium_text_size,context.getResources().getColor(R.color.colorAccent));
                 views.setTextColor(R.id.widget_large_text_size,context.getResources().getColor(R.color.text_primary_inverse));
+                appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+                appWidgetManager.updateAppWidget(appWidgetId,views);
                 break;
             case LARGE_SIZE_CLICKED:
                 textSizes =  Util.getWidgetTextSize(NoteYouPlusAppWidgetConfigureActivity.WIDGET_LARGE_TEXT_SIZE);
@@ -149,11 +161,31 @@ public class NoteYouPlusAppWidget extends AppWidgetProvider{
                 views.setTextColor(R.id.widget_small_text_size,context.getResources().getColor(R.color.text_primary_inverse));
                 views.setTextColor(R.id.widget_medium_text_size,context.getResources().getColor(R.color.text_primary_inverse));
                 views.setTextColor(R.id.widget_large_text_size,context.getResources().getColor(R.color.colorAccent));
+                appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+                appWidgetManager.updateAppWidget(appWidgetId,views);
+                break;
+            case NOTE_UPDATED:
+                String title = intent.getStringExtra(TITLE_INTENT_EXTRA);
+                String content = intent.getStringExtra(CONTENT_INTENT_EXTRA);
+                int bgrColor = intent.getIntExtra(COLOR_INTENT_EXTRA, -1);
+                int noteId = intent.getIntExtra(NOTEID_INTENT_EXTRA, -1);
+                if (noteId >= 0) {
+                    Set<String> appWidgetIds = NoteYouPlusAppWidgetConfigureActivity.loadListAppWidgetIdPref(context, noteId);
+                    for (String stringId : appWidgetIds) {
+                        int appId = Integer.valueOf(stringId);
+                        views.setTextViewText(R.id.appwidget_note_title, title);
+                        views.setContentDescription(R.id.appwidget_note_title, title);
+                        views.setTextViewText(R.id.appwidget_note_content, content);
+                        views.setContentDescription(R.id.appwidget_note_content, content);
+                        views.setInt(R.id.appwidget_note_container, "setBackgroundColor", Util.getBgrColor(bgrColor));
+                        appWidgetManager.updateAppWidget(appId,views);
+                    }
+                }
                 break;
             default:
                 break;
         }
-        appWidgetManager.updateAppWidget(appWidgetId,views);
+
     }
 
 }

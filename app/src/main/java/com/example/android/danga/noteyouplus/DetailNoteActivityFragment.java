@@ -260,94 +260,65 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         }
         // Delete the archived note
         else if (isArchivedNote) {
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, true);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, false);
-            affectedRows = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (affectedRows <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, true, false);
             getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
         }
         //  Delete the currently active note.
         else {
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, true);
-            affectedRows = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (affectedRows <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, true, null);
             getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
         }
     }
 
-    public void handleRecoveryMenuIconCLick() {
-        Uri itemUri = NoteYouPlusContract.NoteEntry.buildItemUri(mNoteId);
+    public void saveNote(int noteId, String title, String content, Integer bgrColor, Boolean isDeleted, Boolean  isArchived){
+        Uri itemUri = NoteYouPlusContract.NoteEntry.buildItemUri(noteId);
         ContentValues values = new ContentValues();
         int affectedRows = 0;
+        if(title != null)
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, title);
+        if(content != null)
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,content);
+        if(bgrColor != null)
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, bgrColor);
+        if(isDeleted != null)
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, isDeleted);
+        if(isArchived != null)
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, isArchived);
+        values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
+        affectedRows = getActivity().getContentResolver().update(
+                itemUri,
+                values,
+                null,
+                null
+        );
+        if (affectedRows <= 0) {
+            Log.v(TAG, "Failed to update this note id; " + mNoteId);
+        } else {
+            Log.v(TAG, "Successfully updated this note id; " + mNoteId);
+            Intent intent = new Intent(getActivity(), NoteYouPlusAppWidget.class);
+            intent.setAction(NoteYouPlusAppWidget.NOTE_UPDATED);
+            intent.putExtra(NoteYouPlusAppWidget.TITLE_INTENT_EXTRA, title)
+                    .putExtra(NoteYouPlusAppWidget.CONTENT_INTENT_EXTRA, content)
+                    .putExtra(NoteYouPlusAppWidget.COLOR_INTENT_EXTRA, bgrColor)
+                    .putExtra(NoteYouPlusAppWidget.NOTEID_INTENT_EXTRA, mNoteId);
+            getActivity().sendBroadcast(intent);
+        }
+    }
+
+    public void handleRecoveryMenuIconCLick() {
         if(isDeletedNote) {
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED, false);
-            affectedRows = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (affectedRows <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, false, null);
             getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
         } else if (isArchivedNote) {
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, false);
-            affectedRows = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (affectedRows <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, null, false);
             getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
         } else {
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED, true);
-            affectedRows = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (affectedRows <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, null, true);
             getActivity().navigateUpTo(NavUtils.getParentActivityIntent(getActivity()));
         }
     }
@@ -357,22 +328,8 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
         Log.v(TAG, "onPause: updating current note");
         // Updating the current note
         if (!isArchivedNote && !isDeletedNote && mNoteId > -1) {
-            Uri itemUri = NoteYouPlusContract.NoteEntry.buildItemUri(mNoteId);
-            ContentValues values = new ContentValues();
-            int rowsUpdated = 0;
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_TITLE, mNoteTitle.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_CONTENT,mNoteContent.getText().toString());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            rowsUpdated = getActivity().getContentResolver().update(
-                    itemUri,
-                    values,
-                    null,
-                    null
-            );
-            if (rowsUpdated <= 0) {
-                Log.v(TAG, "Failed to update this note id; " + mNoteId);
-            }
+            saveNote(mNoteId, mNoteTitle.getText().toString(),
+                    mNoteContent.getText().toString(), mBgrColor, null, null);
         } else if (mNoteId == -1 && !(mNoteTitle.getText().toString().trim().isEmpty()
                 && mNoteContent.getText().toString().trim().isEmpty())) {
             Uri dirUri = NoteYouPlusContract.NoteEntry.buildDirUri();
