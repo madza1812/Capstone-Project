@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.example.android.danga.noteyouplus.NoteYouPlusAppWidget;
 import com.example.android.danga.noteyouplus.data.NoteYouPlusContract.NoteEntry;
 
 import java.util.ArrayList;
@@ -23,12 +24,16 @@ import java.util.ArrayList;
  */
 public class NoteService extends IntentService {
     private static final String TAG = NoteService.class.getSimpleName();
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
+    // IntentService can perform
     private static final String ACTION_SYNC = "com.example.android.danga.noteyouplus.data.action.SYNC";
     private static final String ACTION_UPLOAD = "com.example.android.danga.noteyouplus.data.action.UPLOAD";
+    private static final String ACTION_UPDATE_WIDGET = "com.example.android.danga.noteyouplus.data.action.WIDGET_UPDATE";
 
-    private static final String EXTRA_PARAM1 = "com.example.android.danga.noteyouplus.data.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "com.example.android.danga.noteyouplus.data.extra.PARAM2";
+    //Params
+    private static final String TITLE_NOTE_EXTRA = "com.example.android.danga.noteyouplus.data.extra.NOTE_TITLE";
+    private static final String CONTENT_NOTE_EXTRA = "com.example.android.danga.noteyouplus.data.extra.NOTE_CONTENT";
+    private static final String COLOR_NOTE_EXTRA = "com.example.android.danga.noteyouplus.data.extra.NOTE_BGR_COLOR";
+    private static final String ID_NOTE_EXTRA = "com.example.android.danga.noteyouplus.data.extra.NOTE_ID";
 
     // Back-ground colors
     public static final int DEFAULT_BGR_COLOR = 900;
@@ -45,33 +50,29 @@ public class NoteService extends IntentService {
         super("NoteService");
     }
 
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
     public static void startActionDownload(Context context, String param1, String param2) {
         Intent intent = new Intent(context, NoteService.class);
         intent.setAction(ACTION_SYNC);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
+        intent.putExtra(TITLE_NOTE_EXTRA, param1);
+        intent.putExtra(CONTENT_NOTE_EXTRA, param2);
         context.startService(intent);
     }
 
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
     public static void startActionUpload(Context context, String param1, String param2) {
         Intent intent = new Intent(context, NoteService.class);
         intent.setAction(ACTION_UPLOAD);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
+        intent.putExtra(TITLE_NOTE_EXTRA, param1);
+        intent.putExtra(CONTENT_NOTE_EXTRA, param2);
+        context.startService(intent);
+    }
+
+    public static void startActionUpdateWidget(Context context, String title, String content, int bgrColor, int noteId) {
+        Intent intent = new Intent(context, NoteService.class);
+        intent.setAction(ACTION_UPDATE_WIDGET);
+        intent.putExtra(TITLE_NOTE_EXTRA, title);
+        intent.putExtra(CONTENT_NOTE_EXTRA, content);
+        intent.putExtra(COLOR_NOTE_EXTRA, bgrColor);
+        intent.putExtra(ID_NOTE_EXTRA, noteId);
         context.startService(intent);
     }
 
@@ -80,15 +81,31 @@ public class NoteService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_SYNC.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
+                final String param1 = intent.getStringExtra(TITLE_NOTE_EXTRA);
+                final String param2 = intent.getStringExtra(CONTENT_NOTE_EXTRA);
                 handleActionDownload(param1, param2);
             } else if (ACTION_UPLOAD.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
+                final String param1 = intent.getStringExtra(TITLE_NOTE_EXTRA);
+                final String param2 = intent.getStringExtra(CONTENT_NOTE_EXTRA);
                 handleActionUpload(param1, param2);
-            }
+            }  else if (ACTION_UPDATE_WIDGET.equals(action)) {
+                String title = intent.getStringExtra(TITLE_NOTE_EXTRA);
+                String content = intent.getStringExtra(CONTENT_NOTE_EXTRA);
+                int bgrColor = intent.getIntExtra(COLOR_NOTE_EXTRA, DEFAULT_BGR_COLOR);
+                int noteId = intent.getIntExtra(ID_NOTE_EXTRA, -1);
+                handleActionUpdateWidget(title, content, bgrColor, noteId);
         }
+        }
+    }
+
+    private void handleActionUpdateWidget(String title, String content, int bgrColor, int noteId) {
+        Intent intent = new Intent(getApplicationContext(), NoteYouPlusAppWidget.class);
+        intent.setAction(NoteYouPlusAppWidget.NOTE_UPDATED);
+        intent.putExtra(NoteYouPlusAppWidget.TITLE_INTENT_EXTRA, title)
+                .putExtra(NoteYouPlusAppWidget.CONTENT_INTENT_EXTRA, content)
+                .putExtra(NoteYouPlusAppWidget.COLOR_INTENT_EXTRA, bgrColor)
+                .putExtra(NoteYouPlusAppWidget.NOTEID_INTENT_EXTRA, noteId);
+        getApplicationContext().sendBroadcast(intent);
     }
 
     /**

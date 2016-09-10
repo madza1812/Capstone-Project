@@ -297,13 +297,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             Log.v(TAG, "Failed to update this note id; " + mNoteId);
         } else {
             Log.v(TAG, "Successfully updated this note id; " + mNoteId);
-            Intent intent = new Intent(getActivity(), NoteYouPlusAppWidget.class);
-            intent.setAction(NoteYouPlusAppWidget.NOTE_UPDATED);
-            intent.putExtra(NoteYouPlusAppWidget.TITLE_INTENT_EXTRA, title)
-                    .putExtra(NoteYouPlusAppWidget.CONTENT_INTENT_EXTRA, content)
-                    .putExtra(NoteYouPlusAppWidget.COLOR_INTENT_EXTRA, bgrColor)
-                    .putExtra(NoteYouPlusAppWidget.NOTEID_INTENT_EXTRA, mNoteId);
-            getActivity().sendBroadcast(intent);
+            NoteService.startActionUpdateWidget(getActivity(), title, content, bgrColor, noteId);
         }
     }
 
