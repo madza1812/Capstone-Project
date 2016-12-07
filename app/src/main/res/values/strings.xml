@@ -74,5 +74,7 @@
     <string name="configure">Configure - Choose a note</string>
     <string name="add_widget">Add widget</string>
     <string name="size_button" translatable="false">Aa</string>
+    <!--AdMob ID-->
+    <string name="banner_ad_unit_id">ca-app-pub-6909108418487256/2392226927</string>
 
 </resources>

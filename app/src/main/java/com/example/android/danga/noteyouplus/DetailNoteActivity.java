@@ -13,6 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 public class DetailNoteActivity extends AppCompatActivity
     implements FragmentCallBack{
 
@@ -42,6 +46,13 @@ public class DetailNoteActivity extends AppCompatActivity
                         .getIntent(), getString(R.string.action_share)));
             }
         });
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
+
     }
 
     @Override
