@@ -328,7 +328,7 @@ public class DetailNoteActivityFragment extends DialogFragment implements Loader
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_CREATED_USER,"adang@email.com");
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_USER,"adang@email.com");
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_MODIFIED_DATE, System.currentTimeMillis());
-            values.put(NoteYouPlusContract.NoteEntry.COLUMN_OTHER_USERS,"");
+            values.put(NoteYouPlusContract.NoteEntry.COLUMN_SHARED_USERS,"");
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_DELETED,false);
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_IS_ARCHIVED,false);
             values.put(NoteYouPlusContract.NoteEntry.COLUMN_BG_COLOR, mBgrColor);

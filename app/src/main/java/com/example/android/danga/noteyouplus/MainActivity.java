@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
         // Insert a dummy record.
-        //NoteService.startActionDownload(MainActivity.this, "param1", "param2" );
+        NoteService.startActionDownload(MainActivity.this, "param1", "param2" );
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(

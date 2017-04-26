@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -34,25 +35,12 @@ public class DetailNoteActivity extends AppCompatActivity
 
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.detail_share_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DetailNoteActivityFragment detailFragment = (DetailNoteActivityFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.detail_note_fragment);
-                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(DetailNoteActivity.this)
-                        .setType("text/plain")
-                        .setText(detailFragment.getShareText())
-                        .getIntent(), getString(R.string.action_share)));
-            }
-        });
-
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("4C8FDC0532A81A256A88DCF17A1892F4")
                 .build();
         mAdView.loadAd(adRequest);
-
     }
 
     @Override

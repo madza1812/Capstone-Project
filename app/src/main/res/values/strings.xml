@@ -76,5 +76,7 @@
     <string name="size_button" translatable="false">Aa</string>
     <!--AdMob ID-->
     <string name="banner_ad_unit_id">ca-app-pub-6909108418487256/2392226927</string>
+    <string name="identity_web_app_id">com.googleusercontent.apps.154328681410-3kce73csvgr40k4t6hfhc4r3jn7tcqhs</string>
+    <string name="identity_android_app_id">com.googleusercontent.apps.154328681410-1b3stsn4ihi590dru85aekv872qc4i4i</string>
 
 </resources>
